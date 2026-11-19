@@ -455,3 +455,5 @@ select {
 .reduced-motion .mixing .blended {
   opacity: 1;
 }
+@media(max-width:760px){.drink-name{font-size:10px;line-height:1.45;min-height:29px}.recipe-card strong{font-size:12px;line-height:1.7}.recipe-card time,.card-hex{font-size:10px}.card-no{font-size:9px}}
+@media(max-width:360px){.drink-name{font-size:9px;min-height:27px}}

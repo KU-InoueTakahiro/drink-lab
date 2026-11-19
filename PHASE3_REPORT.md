@@ -25,11 +25,17 @@ IndexedDBのDB名・バージョン・ストア名・キーは変更していま
 
 Playwrightは11ケースを実行する構成です。ローカルではmacOSのMachPort権限制限でChromiumが起動できず、テスト本体に到達できませんでした。成功したテストに数えていません。
 
+GitHub Actionsで単体テスト79件・Playwright11ケースが成功し、Pagesへのデプロイも完了しました。[初回公開の実行結果](https://github.com/KU-InoueTakahiro/drink-lab/actions/runs/44550489970)を参照できます。
+
 GitHub Actionsは単体テスト→ビルド→Chromiumインストール→Playwright→Pagesデプロイの順です。**ブラウザテストが失敗した状態では公開しません。** 最新のCI結果は[Actions](https://github.com/KU-InoueTakahiro/drink-lab/actions)で確認できます。
 
 ## 実ブラウザでの検証
 
 アプリ内ブラウザで、注入→混合→完成画面からの画像生成、ポップ／シンプルのPNG保存、保存済みレシピ詳細からの生成、Phase 2形式のJSON読み込みを確認しています。PNGは1080×1920pxで、日本語・色・配合・ブランドが表示されることを目視確認しました。
+
+音量45%→100%の変更とOFF設定が再読み込み後にも残ること、旧レシピと発見情報が保持されることを確認しました。共有モーダルは320・390・768・1440pxで横スクロールがなく、画面の内側に収まります。最大80文字・10材料を含むPNG2種類は実寸1080×1920で、文字と配合に欠けがないことを確認しています。
+
+公開URLはHTTP 200。公開先のJavaScript、CSS、favicon、Manifest、Apple Touch Icon、192/512pxアイコン、OGP画像もHTTP 200と適切なContent-Typeを確認しました。
 
 ローカル環境のファイル読み込み遅延を避けるため、一時作業コピーで検証し、同じソースと生成物を`drink-lab`に反映します。
 
