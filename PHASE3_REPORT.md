@@ -27,7 +27,9 @@ Playwrightは11ケースを実行する構成です。ローカルではmacOSの
 
 GitHub Actionsで単体テスト79件・Playwright11ケースが成功し、Pagesへのデプロイも完了しました。[初回公開の実行結果](https://github.com/KU-InoueTakahiro/drink-lab/actions/runs/44550489970)を参照できます。
 
-GitHub Actionsは単体テスト→ビルド→Chromiumインストール→Playwright→Pagesデプロイの順です。**ブラウザテストが失敗した状態では公開しません。** 最新のCI結果は[Actions](https://github.com/KU-InoueTakahiro/drink-lab/actions)で確認できます。
+GitHub Actionsは単体テスト→ビルド→Chromiumインストール→Playwright→Pagesデプロイの順です。**ブラウザテストが失敗した状態では公開しません。** 旧ActionsのNode.js 20非推奨警告を解消するため、公式リリースで確認した現行のActionsへ更新しています。
+
+最新のCI結果は[Actions](https://github.com/KU-InoueTakahiro/drink-lab/actions)で確認できます。
 
 ## 実ブラウザでの検証
 
