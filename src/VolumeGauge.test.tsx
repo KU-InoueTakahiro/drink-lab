@@ -17,11 +17,30 @@ describe("混合前の色を隠す容量ゲージ", () => {
     expect(
       [...html.matchAll(/data-drink-id="(.*?)"/g)].map((m) => m[1]),
     ).toEqual(["cola", "water", "cola"]);
-    expect(html).toContain("width:25%;background-color:#713D37");
-    expect(html).toContain("width:50%;background-color:#B9E2EC");
+    expect(html).toContain(
+      "width:16.666666666666664%;background-color:#713D37",
+    );
+    expect(html).toContain("width:33.33333333333333%;background-color:#B9E2EC");
     expect(html).not.toContain(mixColor(layers));
     expect(html).not.toContain("volume-blend");
     expect(html).toContain('aria-valuenow="200"');
+  });
+  it("後から注いでも先に注いだ層の幅を変えない", () => {
+    const render = (ml: number) =>
+      renderToStaticMarkup(
+        <VolumeGauge
+          layers={[
+            { drinkId: "cola", ml: 60 },
+            { drinkId: "water", ml },
+          ]}
+          mixing={false}
+          mixed={false}
+        />,
+      );
+    for (const ml of [5, 60, 180, 240]) {
+      expect(render(ml)).toContain("width:20%;background-color:#713D37");
+      expect(render(ml)).toContain('class="volume-stack" style="width:100%"');
+    }
   });
   it("混合開始後・完成後にだけゲージとグラスの混合色を生成する", () => {
     const before = renderToStaticMarkup(

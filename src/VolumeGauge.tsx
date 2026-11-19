@@ -23,7 +23,7 @@ export function VolumeGauge({
     >
       <div
         className="volume-stack"
-        style={{ width: `${(total / CAPACITY) * 100}%` }}
+        style={{ width: "100%" }}
         aria-hidden="true"
       >
         {layers.map((layer, index) => (
@@ -32,7 +32,7 @@ export function VolumeGauge({
             className="volume-segment"
             data-drink-id={layer.drinkId}
             style={{
-              width: `${(layer.ml / total) * 100}%`,
+              width: `${(layer.ml / CAPACITY) * 100}%`,
               backgroundColor: drinks.find(
                 (drink) => drink.id === layer.drinkId,
               )!.color,
@@ -42,7 +42,10 @@ export function VolumeGauge({
         {(mixing || mixed) && (
           <span
             className={`volume-blend ${mixed ? "is-mixed" : "is-mixing"}`}
-            style={{ backgroundColor: mixColor(layers) }}
+            style={{
+              width: `${(total / CAPACITY) * 100}%`,
+              backgroundColor: mixColor(layers),
+            }}
           />
         )}
       </div>

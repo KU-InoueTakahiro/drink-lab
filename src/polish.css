@@ -484,6 +484,7 @@ select {
   display: flex;
   position: relative;
   overflow: hidden;
+  transition: none;
 }
 .volume-segment {
   display: block;
@@ -492,7 +493,8 @@ select {
 }
 .volume-blend {
   position: absolute;
-  inset: 0;
+  inset: 0 auto 0 0;
+  border-radius: 20px;
   opacity: 0;
 }
 .volume-blend.is-mixing {

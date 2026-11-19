@@ -78,6 +78,27 @@ test("混ぜる前はゲージが注入順の層になり、完成色を先に�
   );
 });
 
+test("後から注入中も先の色の幅と左端を固定する", async ({ page }) => {
+  await start(page);
+  const cola = page.getByRole("button", { name: "コーラを注ぐ", exact: true });
+  await cola.focus();
+  await page.keyboard.down("Space");
+  await page.waitForTimeout(500);
+  await page.keyboard.up("Space");
+  const first = page.locator(".volume-segment").first();
+  const before = (await first.boundingBox())!;
+  const water = page.getByRole("button", { name: "水を注ぐ", exact: true });
+  await water.focus();
+  await page.keyboard.down("Space");
+  for (let i = 0; i < 5; i++) {
+    await page.waitForTimeout(100);
+    const during = (await first.boundingBox())!;
+    expect(during.x).toBeCloseTo(before.x, 1);
+    expect(during.width).toBeCloseTo(before.width, 1);
+  }
+  await page.keyboard.up("Space");
+});
+
 test("図鑑から戻っても作成途中のグラスと履歴が残る", async ({ page }) => {
   await start(page);
   await page.getByRole("button", { name: "メロンソーダを注ぐ" }).click();
