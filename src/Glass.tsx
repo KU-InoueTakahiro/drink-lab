@@ -62,14 +62,16 @@ export function Glass({
             />
           );
         })}
-        <rect
-          className={`blended ${mixed ? "visible" : ""} ${mixing ? "blending" : ""}`}
-          x="70"
-          y={254 - (total / CAPACITY) * 182}
-          width="162"
-          height={(total / CAPACITY) * 182 + 14}
-          fill={mixColor(layers)}
-        />
+        {(mixing || mixed) && (
+          <rect
+            className={`blended ${mixed ? "visible" : ""} ${mixing ? "blending" : ""}`}
+            x="70"
+            y={254 - (total / CAPACITY) * 182}
+            width="162"
+            height={(total / CAPACITY) * 182 + 14}
+            fill={mixColor(layers)}
+          />
+        )}
         {total > 0 && (
           <>
             <ellipse

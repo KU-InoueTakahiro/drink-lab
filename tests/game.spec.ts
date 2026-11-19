@@ -38,6 +38,46 @@ test("Phase 1 注入・停止・履歴・完成画面", async ({ page }) => {
   await page.getByRole("button", { name: "もう一杯つくる" }).click();
   expect(await volume(page)).toBe(0);
 });
+test("混ぜる前はゲージが注入順の層になり、完成色を先に見せない", async ({
+  page,
+}) => {
+  await start(page);
+  for (const name of ["コーラ", "水", "コーラ"])
+    await page
+      .getByRole("button", { name: `${name}を注ぐ`, exact: true })
+      .click();
+  const gauge = page.getByRole("progressbar", { name: "グラスの容量" });
+  await expect(gauge.locator(".volume-segment")).toHaveCount(3);
+  expect(
+    await gauge
+      .locator(".volume-segment")
+      .evaluateAll((elements) =>
+        elements.map((el) => el.getAttribute("data-drink-id")),
+      ),
+  ).toEqual(["cola", "water", "cola"]);
+  expect(
+    await gauge
+      .locator(".volume-segment")
+      .evaluateAll((elements) =>
+        elements.map((el) => getComputedStyle(el).backgroundColor),
+      ),
+  ).toEqual(["rgb(113, 61, 55)", "rgb(185, 226, 236)", "rgb(113, 61, 55)"]);
+  await expect(gauge.locator(".volume-blend")).toHaveCount(0);
+  await expect(page.locator(".glass .blended")).toHaveCount(0);
+  await expect(gauge).toHaveAttribute("aria-valuenow", "15");
+  await page.getByRole("button", { name: "1操作戻す", exact: false }).click();
+  await expect(gauge.locator(".volume-segment")).toHaveCount(2);
+  await expect(gauge).toHaveAttribute("aria-valuenow", "10");
+  await page.getByRole("button", { name: "まぜまぜ！", exact: false }).click();
+  await expect(page.locator(".volume-blend")).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", { name: "ドリンク完成！" }),
+  ).toBeVisible();
+  await expect(page.locator(".completion .color-label")).toContainText(
+    "#959092",
+  );
+});
+
 test("図鑑から戻っても作成途中のグラスと履歴が残る", async ({ page }) => {
   await start(page);
   await page.getByRole("button", { name: "メロンソーダを注ぐ" }).click();

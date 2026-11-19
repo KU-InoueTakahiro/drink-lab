@@ -9,6 +9,7 @@ import {
   totalVolume,
 } from "./engine";
 import { sound } from "./audio";
+import { VolumeGauge } from "./VolumeGauge";
 import { Glass } from "./Glass";
 export function DrinkMaker({
   onComplete,
@@ -329,11 +330,7 @@ export function DrinkMaker({
                 <small> / 300 ml</small>
               </strong>
             </div>
-            <div className="volume-track">
-              <div
-                style={{ width: `${total / 3}%`, background: mixColor(layers) }}
-              />
-            </div>
+            <VolumeGauge layers={layers} mixing={mixing} mixed={mixed} />
             <div className="ingredients">
               {!layers.length ? (
                 <div className="empty-recipe">

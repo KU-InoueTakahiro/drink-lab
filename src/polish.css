@@ -455,5 +455,59 @@ select {
 .reduced-motion .mixing .blended {
   opacity: 1;
 }
-@media(max-width:760px){.drink-name{font-size:10px;line-height:1.45;min-height:29px}.recipe-card strong{font-size:12px;line-height:1.7}.recipe-card time,.card-hex{font-size:10px}.card-no{font-size:9px}}
-@media(max-width:360px){.drink-name{font-size:9px;min-height:27px}}
+@media (max-width: 760px) {
+  .drink-name {
+    font-size: 10px;
+    line-height: 1.45;
+    min-height: 29px;
+  }
+  .recipe-card strong {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .recipe-card time,
+  .card-hex {
+    font-size: 10px;
+  }
+  .card-no {
+    font-size: 9px;
+  }
+}
+@media (max-width: 360px) {
+  .drink-name {
+    font-size: 9px;
+    min-height: 27px;
+  }
+}
+
+.volume-track > .volume-stack {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.volume-segment {
+  display: block;
+  flex-shrink: 0;
+  height: 100%;
+}
+.volume-blend {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.volume-blend.is-mixing {
+  animation: blend 1.5s ease-in-out forwards;
+}
+.volume-blend.is-mixed {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .volume-blend.is-mixing {
+    animation: none;
+    opacity: 1;
+  }
+}
+.reduced-motion .volume-blend.is-mixing {
+  animation: none;
+  opacity: 1;
+}
