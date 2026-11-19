@@ -151,7 +151,7 @@ export function DrinkMaker({
       <header className="topbar">
         <a
           className="brand"
-          href="https://kimagure-jiyucho.com"
+          href="https://ku-inouetakahiro.github.io/kimagure-jiyucho/index.html"
           target="_blank"
           rel="noreferrer"
         >

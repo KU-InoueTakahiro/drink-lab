@@ -1118,7 +1118,7 @@ export function App() {
           )}
           <footer>
             <a
-              href="https://kimagure-jiyucho.com"
+              href="https://ku-inouetakahiro.github.io/kimagure-jiyucho/index.html"
               target="_blank"
               rel="noreferrer"
             >
